@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Description from './Description/Description';
 import Options from './Options/Options';
@@ -29,7 +29,21 @@ const App = () => {
     });
   };
 
-  const positiveFeedback = Math.round((counter.good / totalFeedback) * 100);
+  const positiveFeedback = totalFeedback > 0 ? Math.round((counter.good / totalFeedback) * 100) : 0;
+
+  const feedbackData = {
+    ...counter,
+    totalFeedback,
+    positiveFeedback,
+  };
+
+  useEffect(() => {
+    JSON.parse(localStorage.getItem('feedbackData'));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('feedbackData', JSON.stringify(feedbackData));
+  });
 
   return (
     <>
