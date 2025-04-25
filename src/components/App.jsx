@@ -21,12 +21,33 @@ const App = () => {
 
   const totalFeedback = counter.good + counter.neutral + counter.bad;
 
+  const resetFeedback = () => {
+    setCounter({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
+  const positiveFeedback = Math.round((counter.good / totalFeedback) * 100);
+
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} />
-
-      {totalFeedback > 0 ? <Feedback counter={counter} /> : <Notification />}
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
+      {totalFeedback > 0 ? (
+        <Feedback
+          counter={counter}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
+      ) : (
+        <Notification />
+      )}
     </>
   );
 };
