@@ -31,19 +31,31 @@ const App = () => {
 
   const positiveFeedback = totalFeedback > 0 ? Math.round((counter.good / totalFeedback) * 100) : 0;
 
-  const feedbackData = {
-    ...counter,
-    totalFeedback,
-    positiveFeedback,
-  };
+  //   const feedbackData = {
+  //     ...counter,
+  //     totalFeedback,
+  //     positiveFeedback,
+  //   };
+
+  //   useEffect(() => {
+  //     JSON.parse(localStorage.getItem('feedbackData'));
+  //   }, []);
 
   useEffect(() => {
-    JSON.parse(localStorage.getItem('feedbackData'));
+    const savedData = localStorage.getItem('useState');
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setCounter({
+        good: parsedData.good,
+        neutral: parsedData.neutral,
+        bad: parsedData.bad,
+      });
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('feedbackData', JSON.stringify(feedbackData));
-  });
+    localStorage.setItem('feedbackData', JSON.stringify(counter));
+  }, [counter]);
 
   return (
     <>
