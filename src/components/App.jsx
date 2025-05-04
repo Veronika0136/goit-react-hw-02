@@ -42,7 +42,7 @@ const App = () => {
   //   }, []);
 
   useEffect(() => {
-    const savedData = localStorage.getItem('useState');
+    const savedData = localStorage.getItem('feedbackData');
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       setCounter({
